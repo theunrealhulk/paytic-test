@@ -1,24 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
+import DropZone from './components/DropZone';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Grid container spacing={2}>
+        <Grid item md={6}>
+          <DropZone title="Drop Zone 1"/>          
+        </Grid>
+        <Grid item md={6}>
+          <DropZone title="Drop Zone 2"/>
+        </Grid>
+      </Grid>
+      <Grid>
+        <Grid item md={12}>
+            <Button variant="outlined">Save</Button>
+        </Grid>
+        <Grid item md={12}>
+            {/* Drop Zone 2 Data Table */}
+        </Grid>
+      </Grid>
     </div>
   );
 }
