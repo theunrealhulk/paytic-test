@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import './DataTable.scss'
+import './DataTable.scss';
+import { DropZoneItem} from './types'
 
-type DataTableProps = {
+
+interface DataTableProps {
   dropZoneItems: DropZoneItem[];
-};
-
-type DropZoneItem = {
-  id: string;
-  position: string;
-  checked?: boolean;
-  value?: string;
-};
+}
 
 class DataTable extends Component<DataTableProps> {
   render() {
@@ -28,14 +23,14 @@ class DataTable extends Component<DataTableProps> {
               </TableRow>
             </TableHead>
             <TableBody>
-              {dropZoneItems.map((item) => (
+              {dropZoneItems.map((item:DropZoneItem) => (
                 <TableRow key={item.id}>
                   <TableCell>{item.id}</TableCell>
-                  <TableCell>
-                    {item.checked === true && item.value === undefined && 'True'}
-                    {item.checked === false && item.value === undefined && 'False'}
-                    {item.value !== undefined && item.value}
-                  </TableCell>
+                    <TableCell>
+                      {item.value === true && item.type === 'checkBox' ? 'True' : null}
+                      {item.value === false && item.type === 'checkBox' ? 'False' : null}
+                      {item.type !== 'checkBox' ? item.value : null}
+                    </TableCell>
                 </TableRow>
               ))}
             </TableBody>
