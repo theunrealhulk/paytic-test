@@ -9,7 +9,7 @@ clone the repo and run
   npm install 
   ```
 
-## Running
+## Running the test
 
 In the project directory, you can run:
 
