@@ -1,7 +1,7 @@
 import './App.scss';
 import React, { Component, ChangeEvent } from 'react';
 import { Button, Grid, Typography, Checkbox, TextField } from '@mui/material';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DropResult, DragStart } from 'react-beautiful-dnd';
 import { v4 as uuid } from 'uuid';
 import { DropZoneItem } from './components/types';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
@@ -38,7 +38,20 @@ class App extends Component<{}, AppState> {
           type: 'text'
         },
       ],
-      dropZone2Items: [],
+      dropZone2Items: [
+        {
+          id: uuid(),
+          position: '1',
+          value: true,
+          type: 'checkBox',
+        },
+        {
+          id: uuid(),
+          position: '2',
+          value: '',
+          type: 'text'
+        },
+      ],
       showTable: true,
     };
   }
@@ -58,6 +71,16 @@ class App extends Component<{}, AppState> {
   handleDragEnd = (result: DropResult) => {
     if (!result.destination) {
       return;
+    }
+
+    if (result.source.droppableId === 'drop-zone-1' && this.state.dropZone1Items.length === 1) {
+      // Return true to cancel the dragging action if there is only one item in DropZone 1
+      return 
+    }
+
+    if (result.source.droppableId === 'drop-zone-2' && this.state.dropZone2Items.length === 1) {
+      // Return true to cancel the dragging action if there is only one item in DropZone 2
+      return 
     }
   
     const { source, destination } = result;
@@ -159,7 +182,7 @@ render() {
 
   return (
     <div className="app">
-      <DragDropContext onDragEnd={this.handleDragEnd}>
+      <DragDropContext onDragEnd={this.handleDragEnd} >
         <Grid container spacing={2}>
           <Grid item md={6}>
             <Droppable droppableId="drop-zone-1">
